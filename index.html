@@ -1,0 +1,239 @@
+```python
+import pandas as pd
+df = pd.read_csv('tiendanube-180768-17924606724537870776659988498.csv')
+print("Columns:", df.columns.tolist())
+print(df.head(10)[['Nombre', 'Precio', 'Precio promocional', 'Stock', 'Propiedad 1 Valor', 'Propiedad 2 Valor', 'Imágenes']])
+
+
+```
+
+```text
+Traceback (most recent call last):
+  File "<xbox-string>", line 2, in <module>
+    df = pd.read_csv('tiendanube-180768-17924606724537870776659988498.csv')
+  File "readers.py", line 912, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "readers.py", line 577, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "readers.py", line 1407, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "readers.py", line 1679, in _make_engine
+    return mapping[engine](f, **self.options)
+  File "c_parser_wrapper.py", line 93, in __init__
+    self._reader = parsers.TextReader(src, **kwds)
+  File "parsers.pyx", line 548, in pandas._libs.parsers.TextReader.__cinit__
+  File "parsers.pyx", line 637, in pandas._libs.parsers.TextReader._get_header
+  File "parsers.pyx", line 848, in pandas._libs.parsers.TextReader._tokenize_rows
+  File "parsers.pyx", line 859, in pandas._libs.parsers.TextReader._check_tokenize_status
+  File "parsers.pyx", line 2017, in pandas._libs.parsers.raise_parser_error
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xed in position 37: invalid continuation byte
+
+
+```
+
+```python
+import pandas as pd
+for encoding in ['latin1', 'iso-8859-1', 'cp1252', 'utf-16']:
+    try:
+        df = pd.read_csv('tiendanube-180768-17924606724537870776659988498.csv', encoding=encoding)
+        print("Successfully read with encoding:", encoding)
+        print("Columns:", df.columns.tolist()[:15])
+        print("Shape:", df.shape)
+        break
+    except Exception as e:
+        print(encoding, "failed:", e)
+
+
+```
+
+```text
+latin1 failed: Error tokenizing data. C error: Expected 3 fields in line 43, saw 4
+
+iso-8859-1 failed: Error tokenizing data. C error: Expected 3 fields in line 43, saw 4
+
+cp1252 failed: Error tokenizing data. C error: Expected 3 fields in line 43, saw 4
+
+utf-16 failed: UTF-16 stream does not start with BOM
+
+
+```
+
+```python
+with open('tiendanube-180768-17924606724537870776659988498.csv', 'rb') as f:
+    lines = [f.readline() for _ in range(10)]
+for i, l in enumerate(lines):
+    print(f"Line {i}: {l[:150]}")
+
+
+```
+
+```text
+Line 0: b'"Identificador de URL";Nombre;Categor\xedas;"Nombre de propiedad 1";"Valor de propiedad 1";"Nombre de propiedad 2";"Valor de propiedad 2";"Nombre de prop'
+Line 1: b'vestido-ranya-cqquy;"VESTIDO RANYA";"COLLECION SS\'27 > BOHO, COLLECION SS\'27 > VESTIDOS";Color;Negro;Talle;M;;;125,000.00;;0.50;10.00;30.00;30.00;1;;;'
+Line 2: b'<p>Vestido largo bordado.Tiene cuello en v alto, con broches escondidos en la parte frontal. tiene bajo busto regulable (con tiras finaliozadas en bor'
+Line 3: b'<p>MEDIDAS</p>\n'
+Line 4: b'<p>TALLE M</p>\n'
+Line 5: b'<p>Ancho de hombros: 39 cm.</p>\n'
+Line 6: b'<p>Ancho de sisa: 54 cm.</p>\n'
+Line 7: b'<p>Largo de mangas: 93 cm.</p>\n'
+Line 8: b'<p>Largo total: 137 cm.&nbsp;</p>\n'
+Line 9: b'<p>Todas las medidas son tomadas en plano, por lo que son estimativas.</p>";;;;;SI;;;;0.00;Visible\n'
+
+
+```
+
+```python
+import pandas as pd
+import json
+
+df = pd.read_csv('tiendanube-180768-17924606724537870776659988498.csv', sep=';', encoding='latin1', on_bad_lines='skip')
+print("Columns:", df.columns.tolist())
+print("Data sample:")
+print(df.head(10))
+
+# Extract unique products with non-null names
+products = []
+for idx, row in df.iterrows():
+    name = row.get('Nombre')
+    if pd.isna(name) or not str(name).strip():
+        continue
+    
+    # Try to find images, price, categories, properties
+    price = row.get('Precio', '')
+    promo_price = row.get('Precio promocional', '')
+    cat = row.get('Categorías', '')
+    p1_name = row.get('Nombre de propiedad 1', '')
+    p1_val = row.get('Valor de propiedad 1', '')
+    p2_name = row.get('Nombre de propiedad 2', '')
+    p2_val = row.get('Valor de propiedad 2', '')
+    stock = row.get('Stock', '')
+    
+    # Find image column if any
+    img_cols = [c for c in df.columns if 'Imagen' in str(c) or 'im\xe1gen' in str(c).lower() or 'foto' in str(c).lower()]
+    imgs = [str(row[c]) for c in img_cols if pd.notna(row[c]) and str(row[c]).startswith('http')]
+    
+    products.append({
+        'id': row.get('Identificador de URL', f'prod-{idx}'),
+        'name': str(name).strip(),
+        'category': str(cat) if pd.notna(cat) else 'General',
+        'price': str(price) if pd.notna(price) else '0',
+        'promo_price': str(promo_price) if pd.notna(promo_price) else '',
+        'color': str(p1_val) if pd.notna(p1_val) and 'color' in str(p1_name).lower() else (str(p2_val) if pd.notna(p2_val) and 'color' in str(p2_name).lower() else 'Único'),
+        'size': str(p1_val) if pd.notna(p1_val) and 'talle' in str(p1_name).lower() else (str(p2_val) if pd.notna(p2_val) and 'talle' in str(p2_name).lower() else 'Único'),
+        'stock': str(stock) if pd.notna(stock) else '10',
+        'images': imgs
+    })
+
+print(f"Total products extracted: {len(products)}")
+print("First 3 extracted:", products[:3])
+
+
+```
+
+```text
+Columns: ['Identificador de URL', 'Nombre', 'Categorías', 'Nombre de propiedad 1', 'Valor de propiedad 1', 'Nombre de propiedad 2', 'Valor de propiedad 2', 'Nombre de propiedad 3', 'Valor de propiedad 3', 'Precio', 'Precio promocional', 'Peso (kg)', 'Alto (cm)', 'Ancho (cm)', 'Profundidad (cm)', 'Stock', 'SKU', 'Código de barras', 'Mostrar en tienda', 'Envío sin cargo', 'Descripción', 'Tags', 'Título para SEO', 'Descripción para SEO', 'Marca', 'Producto Físico', 'MPN (Número de pieza del fabricante)', 'Sexo', 'Rango de edad', 'Costo', 'Visibilidad']
+Data sample:
+    Identificador de URL           Nombre                                                     Categorías Nombre de propiedad 1 Valor de propiedad 1 Nombre de propiedad 2 Valor de propiedad 2  Nombre de propiedad 3  Valor de propiedad 3      Precio Precio promocional  Peso (kg)  Alto (cm)  Ancho (cm)  Profundidad (cm)  Stock  SKU  Código de barras Mostrar en tienda Envío sin cargo                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               Descripción  Tags  Título para SEO  Descripción para SEO  Marca Producto Físico  MPN (Número de pieza del fabricante)  Sexo  Rango de edad  Costo Visibilidad
+0    vestido-ranya-cqquy    VESTIDO RANYA             COLLECION SS'27 > BOHO, COLLECION SS'27 > VESTIDOS                 Color                Negro                 Talle                    M                    NaN                   NaN  125,000.00                NaN       0.50       10.0        30.0              30.0    1.0  NaN               NaN                SI              NO                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <p>S27VE24</p>\n<p>Vestido largo bordado.Tiene cuello en v alto, con broches escondidos en la parte frontal. tiene bajo busto regulable (con tiras finaliozadas en borlas). Bordados dorados a lo largo de toda la prenda, combinada con lentejuelas a tono.</p>\n<p>MEDIDAS</p>\n<p>TALLE M</p>\n<p>Ancho de hombros: 39 cm.</p>\n<p>Ancho de sisa: 54 cm.</p>\n<p>Largo de mangas: 93 cm.</p>\n<p>Largo total: 137 cm.&nbsp;</p>\n<p>Todas las medidas son tomadas en plano, por lo que son estimativas.</p>   NaN              NaN                   NaN    NaN              SI                                   NaN   NaN            NaN    0.0     Visible
+1  wide-leg-mother-1bkat  WIDE LEG MOTHER  COLLECION SS'27 > DENIM > SALTAN PEPA, COLLECION SS'27 > JEAN                 Talle                   26                   NaN                  NaN                    NaN                   NaN  149,500.00                NaN       0.01        5.0        30.0              30.0    1.0  NaN               NaN                SI              NO  <p>S27JE51</p>\n<p>El Jean Mother combina la comodidad del denim comfort con una silueta moderna y favorecedora. Su dise&ntilde;o Wide Crop de tiro alto estiliza la figura, realzando la cintura y ofreciendo un ajuste c&oacute;modo en cadera y piernas, con una ca&iacute;da amplia que aporta movimiento y personalidad.</p>\n<p>Su exclusivo lavado Smoke Wash le brinda un efecto desgastado en tonos gris oscuro y negro, logrando un look vers&aacute;til y actual que se adapta f&aacute;cilmente tanto a outfits casuales como m&aacute;s urbanos.</p>\n<p>Medidas aproximadas en plano:</p>\n<p>Talle 24 : Cintura 31 cm | Cadera 40 cm | Largo 90 cm</p>\n<p>Talle 26 : Cintura 33 cm | Cadera 42 cm | Largo 91 cm</p>\n<p>Talle 28 : Cintura 37 cm | Cadera 44 | Largo 92 cm</p>\n<p>Talle 30 : Cintura 40 cm | Cadera 46 cm | Largo 93 cm</p>\n<p>Talle 32 : Cintura 41 cm | Cadera 48 cm | Largo 95 cm</p>\n<p>Talle 34 : Cintura 42 cm | Cadera 49 cm | Largo 96 cm</p>   NaN              NaN                   NaN    NaN              SI                                   NaN   NaN            NaN    0.0     Visible
+2  wide-leg-mother-1bkat              NaN                                                            NaN                 Talle                   28                   NaN                  NaN                    NaN                   NaN  149,500.00                NaN       0.01        5.0        30.0              30.0    1.0  NaN               NaN               NaN             NaN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       NaN   NaN              NaN                   NaN    NaN             NaN                                   NaN   NaN            NaN    0.0         NaN
+3  wide-leg-mother-1bkat              NaN                                                            NaN                 Talle                   30                   NaN                  NaN                    NaN                   NaN  149,500.00                NaN       0.01        5.0        30.0              30.0    1.0  NaN               NaN               NaN             NaN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       NaN   NaN              NaN                   NaN    NaN             NaN                                   NaN   NaN            NaN    0.0         NaN
+4  wide-leg-mother-1bkat              NaN                                                            NaN                 Talle                   32                   NaN                  NaN                    NaN                   NaN  149,500.00                NaN       0.01        5.0        30.0              30.0    1.0  NaN               NaN               NaN             NaN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       NaN   NaN              NaN                   NaN    NaN             NaN                                   NaN   NaN            NaN    0.0         NaN
+5  wide-leg-mother-1bkat              NaN                                                            NaN                 Talle                   34                   NaN                  NaN                    NaN                   NaN  149,500.00                NaN       0.01        5.0        30.0              30.0    1.0  NaN               NaN               NaN             NaN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       NaN   NaN              NaN                   NaN    NaN             NaN                                   NaN   NaN            NaN    0.0         NaN
+6  wide-leg-mother-1bkat              NaN                                                            NaN                 Talle                   36                   NaN                  NaN                    NaN                   NaN  149,500.00                NaN       0.01        5.0        30.0              30.0    2.0  NaN               NaN               NaN             NaN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       NaN   NaN              NaN                   NaN    NaN             NaN                                   NaN   NaN            NaN    0.0         NaN
+7        jean-faro-sruuf        JEAN FARO  COLLECION SS'27 > DENIM > SALTAN PEPA, COLLECION SS'27 > JEAN                 Talle                   24                   NaN                  NaN                    NaN                   NaN  161,750.00                NaN       0.01        5.0        30.0              30.0    1.0  NaN               NaN                SI              NO                                                                             <p>S27JE54</p>\n<p>El Faro tiene calce Flare Crop, tiro medio y Premium Denim Comfort Fit, logrando una silueta femenina que acompa&ntilde;a el cuerpo y se abre sutilmente hacia la botamanga.</p>\n<p>Su largo crop le suma un aire fresco y moderno, mientras que el denim Comfort aporta la comodidad necesaria para usarlo durante todo el d&iacute;a. Un modelo que realza la figura y funciona perfecto tanto para looks relajados como para outfits m&aacute;s arreglados.</p>\n<p>Medidas aproximadas en plano:</p>\n<p>Talle 24 : Cintura 31 cm | Cadera 40 cm | Largo 90 cm</p>\n<p>Talle 26 : Cintura 33 cm | Cadera 42 cm | Largo 91 cm</p>\n<p>Talle 28 : Cintura 37 cm | Cadera 44 | Largo 92 cm</p>\n<p>Talle 30 : Cintura 40 cm | Cadera 46 cm | Largo 93 cm</p>\n<p>Talle 32 : Cintura 41 cm | Cadera 48 cm | Largo 95 cm</p>\n<p>Talle 34 : Cintura 42 cm | Cadera 49 cm | Largo 96 cm</p>   NaN              NaN                   NaN    NaN              SI                                   NaN   NaN            NaN    0.0     Visible
+8        jean-faro-sruuf              NaN                                                            NaN                 Talle                   26                   NaN                  NaN                    NaN                   NaN  161,750.00                NaN       0.01        5.0        30.0              30.0    2.0  NaN               NaN               NaN             NaN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       NaN   NaN              NaN                   NaN    NaN             NaN                                   NaN   NaN            NaN    0.0         NaN
+9        jean-faro-sruuf              NaN                                                            NaN                 Talle                   28                   NaN                  NaN                    NaN                   NaN  161,750.00                NaN       0.01        5.0        30.0              30.0    2.0  NaN               NaN               NaN             NaN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       NaN   NaN              NaN                   NaN    NaN             NaN                                   NaN   NaN            NaN    0.0         NaN
+Total products extracted: 323
+First 3 extracted: [{'id': 'vestido-ranya-cqquy', 'name': 'VESTIDO RANYA', 'category': "COLLECION SS'27 > BOHO, COLLECION SS'27 > VESTIDOS", 'price': '125,000.00', 'promo_price': '', 'color': 'Negro', 'size': 'M', 'stock': '1.0', 'images': []}, {'id': 'wide-leg-mother-1bkat', 'name': 'WIDE LEG MOTHER', 'category': "COLLECION SS'27 > DENIM > SALTAN PEPA, COLLECION SS'27 > JEAN", 'price': '149,500.00', 'promo_price': '', 'color': 'Único', 'size': '26', 'stock': '1.0', 'images': []}, {'id': 'jean-faro-sruuf', 'name': 'JEAN FARO', 'category': "COLLECION SS'27 > DENIM > SALTAN PEPA, COLLECION SS'27 > JEAN", 'price': '161,750.00', 'promo_price': '', 'color': 'Único', 'size': '24', 'stock': '1.0', 'images': []}]
+
+
+```
+
+```python
+img_cols = [c for c in df.columns if 'imagen' in c.lower() or 'url' in c.lower() or 'foto' in c.lower()]
+print("Image/URL columns:", img_cols)
+
+# Check all column names again
+for c in df.columns:
+    print(repr(c))
+
+
+```
+
+```text
+Image/URL columns: ['Identificador de URL']
+'Identificador de URL'
+'Nombre'
+'Categorías'
+'Nombre de propiedad 1'
+'Valor de propiedad 1'
+'Nombre de propiedad 2'
+'Valor de propiedad 2'
+'Nombre de propiedad 3'
+'Valor de propiedad 3'
+'Precio'
+'Precio promocional'
+'Peso (kg)'
+'Alto (cm)'
+'Ancho (cm)'
+'Profundidad (cm)'
+'Stock'
+'SKU'
+'Código de barras'
+'Mostrar en tienda'
+'Envío sin cargo'
+'Descripción'
+'Tags'
+'Título para SEO'
+'Descripción para SEO'
+'Marca'
+'Producto Físico'
+'MPN (Número de pieza del fabricante)'
+'Sexo'
+'Rango de edad'
+'Costo'
+'Visibilidad'
+
+
+```
+
+```python
+# Let's inspect unique main products (rows where Nombre is not null)
+main_prods = df[df['Nombre'].notna()]
+print(f"Total main products: {len(main_prods)}")
+print(main_prods[['Nombre', 'Categorías', 'Precio', 'Precio promocional', 'Nombre de propiedad 1', 'Valor de propiedad 1']].head(20))
+
+
+```
+
+```text
+Total main products: 323
+                Nombre                                                     Categorías      Precio Precio promocional Nombre de propiedad 1 Valor de propiedad 1
+0        VESTIDO RANYA             COLLECION SS'27 > BOHO, COLLECION SS'27 > VESTIDOS  125,000.00                NaN                 Color                Negro
+1      WIDE LEG MOTHER  COLLECION SS'27 > DENIM > SALTAN PEPA, COLLECION SS'27 > JEAN  149,500.00                NaN                 Talle                   26
+7            JEAN FARO  COLLECION SS'27 > DENIM > SALTAN PEPA, COLLECION SS'27 > JEAN  161,750.00                NaN                 Talle                   24
+14          JEAN JUJUY  COLLECION SS'27 > DENIM > SALTAN PEPA, COLLECION SS'27 > JEAN  164,750.00                NaN                 Talle                   24
+20      JEAN CROP MAJO  COLLECION SS'27 > DENIM > SALTAN PEPA, COLLECION SS'27 > JEAN  162,250.00                NaN                 Talle                   24
+26      WIDE LEG BLACK       COLLECION SS'27 > DENIM > RIFFLE, COLLECION SS'27 > JEAN  110,000.00                NaN                 Talle                   24
+30         BLUSA LOANE              COLLECION SS'27 > BOHO, COLLECION SS'27 > BLUSAS    65,000.00                NaN                 Color              Manteca
+31      PANTALON GALIM           COLLECION SS'27 > PANTALONES, COLLECION SS'27 > BOHO   95,000.00                NaN                 Color            Chocolate
+33      VESTIDO ADALIA             COLLECION SS'27 > BOHO, COLLECION SS'27 > VESTIDOS  112,500.00                NaN                 Talle                    M
+34         SACO GRETTA                COLLECION SS'27 > BOHO, COLLECION SS'27 > SACOS  112,500.00                NaN                 Talle                    M
+35       VESTIDO JUANA             COLLECION SS'27 > BOHO, COLLECION SS'27 > VESTIDOS   57,500.00                NaN                 Talle                    M
+37       VESTIDO NICOL             COLLECION SS'27 > BOHO, COLLECION SS'27 > VESTIDOS  112,500.00                NaN                 Talle                    M
+39       FALDA ATHENAS      COLLECION SS'27 > BOHO, COLLECION SS'27 > SHORTS Y FALDAS   92,500.00                NaN                 Talle                    M
+41  VESTIDO/BLUSA ALMA          COLLECION SS'27 > BLUSAS , COLLECION SS'27 > VESTIDOS   68,000.00                NaN                 Talle                    M
+47         TUNICA AYME             COLLECION SS'27 > BOHO, COLLECION SS'27 > VESTIDOS   70,000.00                NaN                 Talle                    M
+51     VESTIDO MYSTICA                                     COLLECION SS'27 > VESTIDOS  112,500.00                NaN                 Talle                    M
+53      MOCASIN TAYLOR                                      COLLECION SS'27 > CALZADO  162,500.00                NaN                 Color            Chocolate
+63       MOCASIN BERNA                                      COLLECION SS'27 > CALZADO  162,500.00                NaN                 Color                Negro
+78      PANTALON ALICE                                   COLLECION SS'27 > PANTALONES   58,000.00                NaN                 Color            Chocolate
+87    MUSCULOSA AMANDA                                   COLLECION SS'27 > MUSCULOSAS   70,000.00                NaN                 Color               Blanco
+
+
+```
+
+Voy a desarrollar una aplicación web e-commerce de alta gama para **Samadhi Style**, inspirada en la estética boho chic de Rapsodia, con banners verticales *Snap-Scroll*, catálogo interactivo precargado con todos los productos del archivo Tiendanube, carrito con cálculo de envío Andreani, simulación de checkout con Mercado Pago, módulo de recupero de carrito abandonado y un Backoffice Admin completo para gestión de stock e inventario.
+
+Procederé a generar la aplicación web en un archivo único.
