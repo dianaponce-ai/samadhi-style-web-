@@ -1,144 +1,1416 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Samadhi Style - Collection SS'27</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Montserrat', sans-serif; background-color: #FAF8F5; color: #2C2A29; }
-    .font-serif-custom { font-family: 'Playfair Display', serif; }
-    .snap-y-mandatory { scroll-snap-type: y mandatory; }
-    .snap-start-item { scroll-snap-align: start; }
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMADHI STYLE | Boho Chic & Luxe Fashion</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        boho: {
+                            ivory: '#FAF7F2',
+                            cream: '#F4EFE6',
+                            gold: '#D4AF37',
+                            goldHover: '#B59226',
+                            bordeaux: '#6B1D2F',
+                            terracotta: '#C86D51',
+                            charcoal: '#2B2B2B',
+                            sand: '#E8DFD1',
+                            rose: '#E2B8B3'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Cormorant Garamond', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAF7F2;
+            color: #2B2B2B;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Smooth vertical snap scroll for Hero Section */
+        .snap-v-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 90vh;
+            scrollbar-width: none;
+        }
+        .snap-v-container::-webkit-scrollbar {
+            display: none;
+        }
+        .snap-v-slide {
+            scroll-snap-align: start;
+            height: 90vh;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF7F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C86D51;
+            border-radius: 4px;
+        }
+
+        /* Gold Gradient Animations */
+        .gold-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #B59226 100%);
+        }
+        .gold-text {
+            background: linear-gradient(135deg, #D4AF37 0%, #B59226 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Badge Pulse */
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.05); }
+        }
+        .pulse-gold {
+            animation: pulse-subtle 2s infinite ease-in-out;
+        }
+    </style>
 </head>
-<body class="bg-[#FAF8F5] text-[#2C2A29]">
-  <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-amber-900/10 px-6 py-4 flex justify-between items-center">
-    <h1 class="font-serif-custom text-2xl font-bold tracking-widest text-[#4A3B32]">SAMADHI</h1>
-    <div class="flex gap-4 items-center">
-      <button onclick="toggleCart()" class="relative p-2 text-amber-950 font-medium">
-        Carrito (<span id="cart-count">0</span>)
-      </button>
+<body class="antialiased selection:bg-boho-terracotta selection:text-white">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div id="top-bar" class="bg-boho-bordeaux text-boho-ivory text-xs tracking-widest uppercase py-2 px-4 text-center font-medium flex justify-between items-center transition-all">
+        <div class="hidden sm:block text-left text-[10px] text-boho-sand">
+            <i class="fa-solid fa-truck-fast mr-1"></i> ENVIOS A TODA ARGENTINA CON ANDREANI
+        </div>
+        <div class="w-full sm:w-auto text-center font-semibold">
+            ✨ 3 Y 6 CUOTAS SIN INTERÉS CON MERCADO PAGO | 15% OFF TRANSFERENCIA
+        </div>
+        <div class="hidden sm:block text-right text-[10px] text-boho-sand">
+            <i class="fa-solid fa-gem mr-1"></i> BOHO CHIC COLLECTION SS'27
+        </div>
     </div>
-  </header>
 
-  <main class="h-screen w-full overflow-y-scroll snap-y-mandatory no-scrollbar pt-16">
-    <section class="h-screen w-full snap-start-item relative flex items-center justify-center bg-stone-900 text-white">
-      <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Samadhi SS27">
-      <div class="relative z-10 text-center px-4">
-        <span class="text-xs uppercase tracking-[0.3em] text-amber-200">Colección SS'27</span>
-        <h2 class="font-serif-custom text-5xl md:text-7xl mt-2 mb-4">BOHO LUXE</h2>
-        <p class="max-w-md mx-auto text-stone-200 text-sm mb-6">Inspiración gitana, bordados artesanales y cortes fluidos diseñados para destacar.</p>
-        <a href="#catalogo" class="inline-block border border-white px-8 py-3 text-xs tracking-widest uppercase hover:bg-white hover:text-black transition">Explorar Tienda</a>
-      </div>
-    </section>
+    <!-- MAIN NAVBAR (FLOATING LUXE DESIGN) -->
+    <header class="sticky top-0 z-40 bg-boho-ivory/95 backdrop-blur-md border-b border-boho-sand/60 transition-all shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Mobile Menu Trigger -->
+            <button onclick="toggleMobileNav()" class="lg:hidden text-boho-charcoal hover:text-boho-bordeaux text-xl p-2">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
 
-    <section id="catalogo" class="min-h-screen snap-start-item py-12 px-6 max-w-7xl mx-auto">
-      <div class="text-center mb-10">
-        <h2 class="font-serif-custom text-3xl font-bold text-[#4A3B32]">Productos Destacados</h2>
-        <p class="text-stone-500 text-sm mt-1">Envíos a toda Argentina por Andreani | Pago seguro con Mercado Pago</p>
-      </div>
+            <!-- Brand Logo -->
+            <a href="#" onclick="showSection('store')" class="flex flex-col items-center group">
+                <span class="font-serif text-2xl sm:text-3xl tracking-[0.25em] font-bold text-boho-charcoal group-hover:text-boho-bordeaux transition-colors">
+                    SAMADHI
+                </span>
+                <span class="text-[9px] tracking-[0.4em] uppercase text-boho-terracotta font-semibold -mt-1">
+                    STYLE • BOHO CHIC
+                </span>
+            </a>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
-        <div class="bg-white border border-stone-200 rounded-lg overflow-hidden shadow-sm flex flex-col justify-between">
-          <div>
-            <img src="https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80" class="w-full h-80 object-cover" alt="Vestido Ranya">
-            <div class="p-5">
-              <span class="text-[10px] tracking-widest uppercase text-amber-800 bg-amber-50 px-2 py-1 rounded">Boho / Vestidos</span>
-              <h3 class="font-serif-custom text-xl font-bold mt-2">VESTIDO RANYA</h3>
-              <p class="text-xs text-stone-500 mt-1">Vestido largo bordado con detalles en hilo dorado y lentejuelas a tono.</p>
-              <p class="font-bold text-lg text-stone-800 mt-3">$125.000,00</p>
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden lg:flex items-center space-x-8 text-xs font-semibold tracking-widest uppercase">
+                <a href="#catalogo" onclick="filterCategory('ALL')" class="hover:text-boho-terracotta transition-colors py-1 border-b-2 border-transparent hover:border-boho-terracotta">Colección Completa</a>
+                <a href="#catalogo" onclick="filterCategory('Vestidos')" class="hover:text-boho-terracotta transition-colors py-1">Vestidos</a>
+                <a href="#catalogo" onclick="filterCategory('Denim')" class="hover:text-boho-terracotta transition-colors py-1">Denim & Wide Leg</a>
+                <a href="#catalogo" onclick="filterCategory('Túnicas y Blusas')" class="hover:text-boho-terracotta transition-colors py-1">Blusas & Túnicas</a>
+                <a href="#catalogo" onclick="filterCategory('Calzado')" class="hover:text-boho-terracotta transition-colors py-1">Mocasines</a>
+            </nav>
+
+            <!-- Action Controls -->
+            <div class="flex items-center space-x-3 sm:space-x-5">
+                <!-- Search Trigger -->
+                <div class="relative hidden sm:block">
+                    <input type="text" id="searchInput" onkeyup="handleSearch()" placeholder="Buscar vestidos, jean..." class="bg-boho-cream text-xs border border-boho-sand rounded-full pl-8 pr-4 py-2 w-36 sm:w-48 focus:outline-none focus:border-boho-terracotta transition-all">
+                    <i class="fa-solid fa-magnifying-glass text-xs text-gray-400 absolute left-3 top-2.5"></i>
+                </div>
+
+                <!-- Toggle Admin vs Customer View -->
+                <button onclick="toggleViewMode()" id="viewToggleBtn" class="text-xs px-3 py-1.5 rounded-full border border-boho-bordeaux text-boho-bordeaux hover:bg-boho-bordeaux hover:text-white transition-all font-medium flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span id="viewToggleText" class="hidden md:inline">Modo Backoffice</span>
+                </button>
+
+                <!-- Cart Icon with Counter Badge -->
+                <button onclick="openCartDrawer()" class="relative text-boho-charcoal hover:text-boho-terracotta transition-colors p-2">
+                    <i class="fa-solid fa-bag-shopping text-xl"></i>
+                    <span id="cartCount" class="absolute top-0 right-0 bg-boho-bordeaux text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white shadow-sm">0</span>
+                </button>
             </div>
-          </div>
-          <div class="p-5 pt-0">
-            <button onclick="addToCart('VESTIDO RANYA', 125000)" class="w-full bg-[#4A3B32] text-white py-2 text-xs uppercase tracking-wider rounded hover:bg-stone-800 transition">Agregar al Carrito</button>
-          </div>
         </div>
+    </header>
 
-        <div class="bg-white border border-stone-200 rounded-lg overflow-hidden shadow-sm flex flex-col justify-between">
-          <div>
-            <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=600&q=80" class="w-full h-80 object-cover" alt="Wide Leg Mother">
-            <div class="p-5">
-              <span class="text-[10px] tracking-widest uppercase text-amber-800 bg-amber-50 px-2 py-1 rounded">Denim / Jean</span>
-              <h3 class="font-serif-custom text-xl font-bold mt-2">WIDE LEG MOTHER</h3>
-              <p class="text-xs text-stone-500 mt-1">Jean tiro alto Wide Crop en lavado Smoke Wash comfort fit.</p>
-              <p class="font-bold text-lg text-stone-800 mt-3">$149.500,00</p>
+    <!-- MOBILE NAVIGATION MENU OVERLAY -->
+    <div id="mobileNav" class="fixed inset-0 bg-black/50 z-50 hidden transition-opacity" onclick="toggleMobileNav()">
+        <div class="w-4/5 max-w-sm bg-boho-ivory h-full shadow-2xl p-6 flex flex-col justify-between" onclick="event.stopPropagation()">
+            <div>
+                <div class="flex justify-between items-center mb-8 pb-4 border-b border-boho-sand">
+                    <span class="font-serif font-bold text-xl tracking-widest text-boho-charcoal">SAMADHI STYLE</span>
+                    <button onclick="toggleMobileNav()" class="text-xl text-gray-500"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="space-y-4 flex flex-col uppercase text-xs font-semibold tracking-wider">
+                    <a href="#catalogo" onclick="filterCategory('ALL'); toggleMobileNav()" class="py-2 border-b border-boho-cream">Ver Todo el Catálogo</a>
+                    <a href="#catalogo" onclick="filterCategory('Vestidos'); toggleMobileNav()" class="py-2 border-b border-boho-cream">Vestidos Boho Chic</a>
+                    <a href="#catalogo" onclick="filterCategory('Denim'); toggleMobileNav()" class="py-2 border-b border-boho-cream">Denim & Wide Leg</a>
+                    <a href="#catalogo" onclick="filterCategory('Túnicas y Blusas'); toggleMobileNav()" class="py-2 border-b border-boho-cream">Blusas y Túnicas</a>
+                    <a href="#catalogo" onclick="filterCategory('Calzado'); toggleMobileNav()" class="py-2 border-b border-boho-cream">Calzado & Mocasines</a>
+                </div>
             </div>
-          </div>
-          <div class="p-5 pt-0">
-            <button onclick="addToCart('WIDE LEG MOTHER', 149500)" class="w-full bg-[#4A3B32] text-white py-2 text-xs uppercase tracking-wider rounded hover:bg-stone-800 transition">Agregar al Carrito</button>
-          </div>
-        </div>
-
-        <div class="bg-white border border-stone-200 rounded-lg overflow-hidden shadow-sm flex flex-col justify-between">
-          <div>
-            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80" class="w-full h-80 object-cover" alt="Blusa Loane">
-            <div class="p-5">
-              <span class="text-[10px] tracking-widest uppercase text-amber-800 bg-amber-50 px-2 py-1 rounded">Boho / Blusas</span>
-              <h3 class="font-serif-custom text-xl font-bold mt-2">BLUSA LOANE</h3>
-              <p class="text-xs text-stone-500 mt-1">Blusa de bambula manteca con alforzas y encaje guipur de algodón.</p>
-              <p class="font-bold text-lg text-stone-800 mt-3">$65.000,00</p>
+            <div class="pt-6 border-t border-boho-sand">
+                <p class="text-xs text-gray-500 text-center">Atención al cliente: <br><strong>hola@samadhistyle.com.ar</strong></p>
             </div>
-          </div>
-          <div class="p-5 pt-0">
-            <button onclick="addToCart('BLUSA LOANE', 6500)" class="w-full bg-[#4A3B32] text-white py-2 text-xs uppercase tracking-wider rounded hover:bg-stone-800 transition">Agregar al Carrito</button>
-          </div>
         </div>
-      </div>
-    </section>
-  </main>
-
-  <div id="cart-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex justify-end">
-    <div class="bg-white w-full max-w-md h-full p-6 flex flex-col justify-between shadow-xl">
-      <div>
-        <div class="flex justify-between items-center border-b pb-4">
-          <h3 class="font-serif-custom text-xl font-bold">Tu Carrito</h3>
-          <button onclick="toggleCart()" class="text-stone-400 hover:text-black">✕</button>
-        </div>
-        <div id="cart-items" class="py-4 space-y-3 text-sm">
-          <p class="text-stone-400">El carrito está vacío.</p>
-        </div>
-      </div>
-      <div class="border-t pt-4">
-        <div class="flex justify-between font-bold text-lg mb-4">
-          <span>Total:</span>
-          <span id="cart-total">$0</span>
-        </div>
-        <button onclick="alert('Redirigiendo a la pasarela de pago de Mercado Pago...')" class="w-full bg-blue-600 text-white py-3 font-semibold rounded hover:bg-blue-700 transition">Pagar con Mercado Pago</button>
-      </div>
     </div>
-  </div>
 
-  <script>
-    let cart = [];
-    function toggleCart() {
-      document.getElementById('cart-modal').classList.toggle('hidden');
-    }
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      document.getElementById('cart-count').innerText = cart.length;
-      updateCartUI();
-      toggleCart();
-    }
-    function updateCartUI() {
-      const container = document.getElementById('cart-items');
-      if(cart.length === 0) {
-        container.innerHTML = '<p class="text-stone-400">El carrito está vacío.</p>';
-        document.getElementById('cart-total').innerText = '$0';
-        return;
-      }
-      let html = '';
-      let total = 0;
-      cart.forEach(item => {
-        total += item.price;
-        html += `<div class="flex justify-between border-b pb-2"><span>${item.name}</span><span class="font-bold">$${item.price.toLocaleString('es-AR')}</span></div>`;
-      });
-      container.innerHTML = html;
-      document.getElementById('cart-total').innerText = '$' + total.toLocaleString('es-AR');
-    }
-  </script>
+    <!-- CLIENT FRONTEND VIEW -->
+    <main id="clientView" class="block">
+        
+        <!-- RAPSODIA STYLE VERTICAL SNAP SLIDER HERO -->
+        <section class="relative bg-boho-charcoal text-white">
+            <div class="snap-v-container" id="snapSlider">
+                
+                <!-- Slide 1 -->
+                <div class="snap-v-slide relative flex items-center justify-center bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1600&q=80');">
+                    <div class="text-center px-4 max-w-3xl mx-auto space-y-6">
+                        <span class="text-boho-gold tracking-[0.4em] uppercase text-xs font-semibold px-4 py-1.5 border border-boho-gold/40 rounded-full inline-block backdrop-blur-md">
+                            NUEVA COLECCIÓN SS'27
+                        </span>
+                        <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-light tracking-wide text-boho-ivory drop-shadow-md">
+                            Espíritu Libre & Alma Boho
+                        </h1>
+                        <p class="text-sm sm:text-base font-light text-boho-sand max-w-xl mx-auto tracking-widest leading-relaxed">
+                            Bordados artesanales, sedas etéreas y detalles con mística oriental. Diseñados en Argentina.
+                        </p>
+                        <div class="pt-4">
+                            <a href="#catalogo" class="gold-gradient text-boho-charcoal hover:bg-white hover:text-black transition-all px-8 py-3.5 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg inline-block hover:scale-105 transform">
+                                Explorar Colección
+                            </a>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce text-boho-gold text-sm flex flex-col items-center gap-1 cursor-pointer" onclick="scrollNextSlide()">
+                        <span class="text-[9px] tracking-widest uppercase">Desliza</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="snap-v-slide relative flex items-center justify-center bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1600&q=80');">
+                    <div class="text-center px-4 max-w-3xl mx-auto space-y-6">
+                        <span class="text-boho-rose tracking-[0.4em] uppercase text-xs font-semibold px-4 py-1.5 border border-boho-rose/40 rounded-full inline-block backdrop-blur-md">
+                            VESTIDOS & TUNICAS
+                        </span>
+                        <h2 class="font-serif text-4xl sm:text-6xl md:text-7xl font-light tracking-wide text-boho-ivory">
+                            Texturas Que Cuentan Historias
+                        </h2>
+                        <p class="text-sm sm:text-base font-light text-boho-sand max-w-xl mx-auto tracking-widest">
+                            Vestidos de diseño exclusivo con acabados premium y caída fluida.
+                        </p>
+                        <div class="pt-4">
+                            <a href="#catalogo" onclick="filterCategory('Vestidos')" class="bg-boho-ivory text-boho-charcoal hover:bg-boho-gold hover:text-white transition-all px-8 py-3.5 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg inline-block">
+                                Ver Vestidos Exclusivos
+                            </a>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce text-boho-gold text-sm flex flex-col items-center gap-1 cursor-pointer" onclick="scrollNextSlide()">
+                        <span class="text-[9px] tracking-widest uppercase">Desliza</span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="snap-v-slide relative flex items-center justify-center bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=1600&q=80');">
+                    <div class="text-center px-4 max-w-3xl mx-auto space-y-6">
+                        <span class="text-boho-sand tracking-[0.4em] uppercase text-xs font-semibold px-4 py-1.5 border border-boho-sand/40 rounded-full inline-block backdrop-blur-md">
+                            DENIM LUXURY & FIT PERFECTO
+                        </span>
+                        <h2 class="font-serif text-4xl sm:text-6xl md:text-7xl font-light tracking-wide text-boho-ivory">
+                            Jeans & Wide Legs
+                        </h2>
+                        <p class="text-sm sm:text-base font-light text-boho-sand max-w-xl mx-auto tracking-widest">
+                            Faros, Jujuy, Mother y Crop Majo. Calce perfecto con lavados artesanales.
+                        </p>
+                        <div class="pt-4">
+                            <a href="#catalogo" onclick="filterCategory('Denim')" class="bg-boho-terracotta text-white hover:bg-boho-bordeaux transition-all px-8 py-3.5 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg inline-block">
+                                Descubrir Denim
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Dots Indicator for Slider -->
+            <div class="absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col gap-3 z-10">
+                <button onclick="scrollToSlide(0)" class="w-2.5 h-2.5 rounded-full bg-white/50 hover:bg-boho-gold transition-all"></button>
+                <button onclick="scrollToSlide(1)" class="w-2.5 h-2.5 rounded-full bg-white/50 hover:bg-boho-gold transition-all"></button>
+                <button onclick="scrollToSlide(2)" class="w-2.5 h-2.5 rounded-full bg-white/50 hover:bg-boho-gold transition-all"></button>
+            </div>
+        </section>
+
+        <!-- VALUE PROPOSITIONS STRIP -->
+        <section class="bg-boho-cream border-y border-boho-sand/70 py-8">
+            <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="flex items-center justify-center space-x-3 p-2">
+                    <i class="fa-solid fa-truck-ramp-box text-2xl text-boho-terracotta"></i>
+                    <div class="text-left">
+                        <h4 class="font-serif font-bold text-xs uppercase tracking-wider text-boho-charcoal">Envíos a Todo el País</h4>
+                        <p class="text-[11px] text-gray-600">Con Andreani a Sucursal o Domicilio</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center space-x-3 p-2">
+                    <i class="fa-solid fa-credit-card text-2xl text-boho-gold"></i>
+                    <div class="text-left">
+                        <h4 class="font-serif font-bold text-xs uppercase tracking-wider text-boho-charcoal">Mercado Pago</h4>
+                        <p class="text-[11px] text-gray-600">Hasta 6 cuotas fijas o transferencia</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center space-x-3 p-2">
+                    <i class="fa-solid fa-arrows-rotate text-2xl text-boho-bordeaux"></i>
+                    <div class="text-left">
+                        <h4 class="font-serif font-bold text-xs uppercase tracking-wider text-boho-charcoal">Cambios Sencillos</h4>
+                        <p class="text-[11px] text-gray-600">30 días de garantía en tus prendas</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center space-x-3 p-2">
+                    <i class="fa-solid fa-shield-halved text-2xl text-boho-terracotta"></i>
+                    <div class="text-left">
+                        <h4 class="font-serif font-bold text-xs uppercase tracking-wider text-boho-charcoal">Compra Segura</h4>
+                        <p class="text-[11px] text-gray-600">Atención personalizada post-venta</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CATALOG SECTION -->
+        <section id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            
+            <!-- Section Header -->
+            <div class="text-center mb-12">
+                <span class="text-boho-terracotta text-xs tracking-[0.3em] font-semibold uppercase">Catálogo Tiendanube</span>
+                <h2 class="font-serif text-3xl sm:text-4xl text-boho-charcoal font-normal mt-1">Colección Samadhi Style</h2>
+                <div class="w-16 h-0.5 bg-boho-gold mx-auto mt-3"></div>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b border-boho-sand">
+                
+                <!-- Category Tabs -->
+                <div class="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wider">
+                    <button onclick="filterCategory('ALL')" class="cat-filter-btn active bg-boho-charcoal text-white px-4 py-2 rounded-full transition-all">Todos</button>
+                    <button onclick="filterCategory('Vestidos')" class="cat-filter-btn bg-boho-cream text-boho-charcoal hover:bg-boho-sand px-4 py-2 rounded-full transition-all">Vestidos</button>
+                    <button onclick="filterCategory('Denim')" class="cat-filter-btn bg-boho-cream text-boho-charcoal hover:bg-boho-sand px-4 py-2 rounded-full transition-all">Denim</button>
+                    <button onclick="filterCategory('Túnicas y Blusas')" class="cat-filter-btn bg-boho-cream text-boho-charcoal hover:bg-boho-sand px-4 py-2 rounded-full transition-all">Blusas & Túnicas</button>
+                    <button onclick="filterCategory('Sacos y Pantalones')" class="cat-filter-btn bg-boho-cream text-boho-charcoal hover:bg-boho-sand px-4 py-2 rounded-full transition-all">Sacos & Pantalones</button>
+                    <button onclick="filterCategory('Calzado')" class="cat-filter-btn bg-boho-cream text-boho-charcoal hover:bg-boho-sand px-4 py-2 rounded-full transition-all">Mocasines</button>
+                </div>
+
+                <!-- Sort dropdown -->
+                <div class="flex items-center space-x-2 text-xs text-gray-600">
+                    <label for="sortSelect" class="font-medium">Ordenar por:</label>
+                    <select id="sortSelect" onchange="sortProducts()" class="bg-boho-cream border border-boho-sand rounded-lg px-3 py-1.5 focus:outline-none text-xs font-medium">
+                        <option value="featured">Destacados</option>
+                        <option value="price-asc">Precio: Menor a Mayor</option>
+                        <option value="price-desc">Precio: Mayor a Menor</option>
+                        <option value="name">Nombre A-Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- PRODUCT GRID -->
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Dynamically populated via JS from Tiendanube CSV catalog -->
+            </div>
+
+            <!-- Empty Search Results Placeholder -->
+            <div id="noProductsFound" class="hidden text-center py-16">
+                <i class="fa-solid fa-sparkles text-4xl text-boho-sand mb-3"></i>
+                <h3 class="font-serif text-xl text-boho-charcoal font-semibold">No encontramos prendas con ese criterio</h3>
+                <p class="text-xs text-gray-500 mt-1">Prueba con otra búsqueda o selecciona una categoría general.</p>
+                <button onclick="filterCategory('ALL')" class="mt-4 bg-boho-bordeaux text-white text-xs px-6 py-2.5 rounded-full font-semibold uppercase tracking-wider">Ver Todo el Catálogo</button>
+            </div>
+        </section>
+
+        <!-- INSTAGRAM BOHEMIAN INSPIRATION GALLERY -->
+        <section class="bg-boho-cream/60 py-16 border-t border-boho-sand">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <span class="text-boho-terracotta text-xs font-semibold uppercase tracking-widest">#SamadhiLook</span>
+                <h3 class="font-serif text-2xl sm:text-3xl text-boho-charcoal font-normal mt-1">Universo Samadhi en Instagram</h3>
+                <p class="text-xs text-gray-600 mt-1 mb-8">Etiquétanos en tu outfit boho y sé parte de nuestra comunidad @samadhi.style</p>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="relative group overflow-hidden rounded-xl aspect-square shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="Look 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                            <i class="fa-brands fa-instagram text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="relative group overflow-hidden rounded-xl aspect-square shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80" alt="Look 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                            <i class="fa-brands fa-instagram text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="relative group overflow-hidden rounded-xl aspect-square shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=600&q=80" alt="Look 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                            <i class="fa-brands fa-instagram text-2xl"></i>
+                        </div>
+                    </div>
+                    <div class="relative group overflow-hidden rounded-xl aspect-square shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=600&q=80" alt="Look 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                            <i class="fa-brands fa-instagram text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BACKOFFICE ADMIN VIEW -->
+    <main id="adminView" class="hidden bg-slate-900 text-slate-100 min-h-screen pb-20">
+        
+        <!-- Admin Subheader Nav -->
+        <div class="bg-slate-800 border-b border-slate-700 px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+            <div>
+                <h1 class="font-serif text-xl font-bold text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-line"></i> SAMADHI BACKOFFICE MANAGEMENT
+                </h1>
+                <p class="text-xs text-slate-400">Control de stock, órdenes, carritos abandonados e integración Tiendanube</p>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <button onclick="openAddProductModal()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs px-4 py-2 rounded-lg transition-all flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-plus"></i> Nuevo Producto
+                </button>
+                <button onclick="toggleViewMode()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs px-4 py-2 rounded-lg transition-all">
+                    <i class="fa-solid fa-arrow-left mr-1"></i> Volver a Tienda
+                </button>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+            
+            <!-- KPI CARDS -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-sm">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs uppercase font-semibold text-slate-400">Ventas Totales</p>
+                            <h3 id="adminKpiSales" class="text-2xl font-bold text-white mt-1">$482.500</h3>
+                        </div>
+                        <div class="p-3 bg-emerald-500/10 text-emerald-400 rounded-lg"><i class="fa-solid fa-sack-dollar text-xl"></i></div>
+                    </div>
+                    <p class="text-[11px] text-emerald-400 mt-3 font-medium"><i class="fa-solid fa-arrow-up"></i> +18% vs mes anterior</p>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-sm">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs uppercase font-semibold text-slate-400">Órdenes Procesadas</p>
+                            <h3 id="adminKpiOrders" class="text-2xl font-bold text-white mt-1">4 Pedidos</h3>
+                        </div>
+                        <div class="p-3 bg-blue-500/10 text-blue-400 rounded-lg"><i class="fa-solid fa-box-open text-xl"></i></div>
+                    </div>
+                    <p class="text-[11px] text-slate-400 mt-3">Mercado Pago / Andreani</p>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-sm">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs uppercase font-semibold text-slate-400">Carritos Abandonados</p>
+                            <h3 id="adminKpiAbandoned" class="text-2xl font-bold text-amber-400 mt-1">2 Sesiones</h3>
+                        </div>
+                        <div class="p-3 bg-amber-500/10 text-amber-400 rounded-lg"><i class="fa-solid fa-cart-arrow-down text-xl"></i></div>
+                    </div>
+                    <p class="text-[11px] text-amber-300 mt-3"><i class="fa-solid fa-bell"></i> Listos para recupero por WhatsApp</p>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 shadow-sm">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs uppercase font-semibold text-slate-400">Alerta de Stock Bajo</p>
+                            <h3 id="adminKpiLowStock" class="text-2xl font-bold text-rose-400 mt-1">3 Items</h3>
+                        </div>
+                        <div class="p-3 bg-rose-500/10 text-rose-400 rounded-lg"><i class="fa-solid fa-triangle-exclamation text-xl"></i></div>
+                    </div>
+                    <p class="text-[11px] text-rose-400 mt-3 font-medium">Requieren reposición</p>
+                </div>
+            </div>
+
+            <!-- ADMIN TABS -->
+            <div class="flex border-b border-slate-700 mb-6 space-x-6 text-sm font-semibold">
+                <button onclick="switchAdminTab('products')" id="tabBtnProducts" class="pb-3 border-b-2 border-amber-400 text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-shirt"></i> Catálogo & Inventario (<span id="adminProdCount">0</span>)
+                </button>
+                <button onclick="switchAdminTab('orders')" id="tabBtnOrders" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-receipt"></i> Registro de Órdenes (<span id="adminOrdersCount">0</span>)
+                </button>
+                <button onclick="switchAdminTab('abandoned')" id="tabBtnAbandoned" class="pb-3 border-b-2 border-transparent text-slate-400 hover:text-white flex items-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i> Recordatorio Carritos Abandonados (<span id="adminAbandonedCount">0</span>)
+                </button>
+            </div>
+
+            <!-- TAB 1: PRODUCT CATALOG & INVENTORY MANAGEMENT -->
+            <div id="adminTabProducts" class="space-y-4">
+                <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow">
+                    <div class="p-4 border-b border-slate-700 flex justify-between items-center">
+                        <h3 class="font-semibold text-sm text-slate-200">Inventario General Tiendanube Sync</h3>
+                        <span class="text-xs text-slate-400">Variantes de talle y color configurables</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-900/60 text-slate-400 uppercase font-semibold">
+                                <tr>
+                                    <th class="p-3.5">Producto</th>
+                                    <th class="p-3.5">Categoría</th>
+                                    <th class="p-3.5">Precio Lista</th>
+                                    <th class="p-3.5">Talles Disponibles</th>
+                                    <th class="p-3.5">Colores</th>
+                                    <th class="p-3.5 text-center">Stock Total</th>
+                                    <th class="p-3.5 text-right">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminProductsTableBody" class="divide-y divide-slate-700/60">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: ORDERS MANAGEMENT -->
+            <div id="adminTabOrders" class="hidden space-y-4">
+                <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow">
+                    <div class="p-4 border-b border-slate-700 flex justify-between items-center">
+                        <h3 class="font-semibold text-sm text-slate-200">Órdenes de Compra en Tiempo Real</h3>
+                        <span class="text-xs text-emerald-400"><i class="fa-solid fa-circle text-[8px] animate-pulse"></i> Sincronizado con Mercado Pago</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-900/60 text-slate-400 uppercase font-semibold">
+                                <tr>
+                                    <th class="p-3.5">N° Orden</th>
+                                    <th class="p-3.5">Cliente</th>
+                                    <th class="p-3.5">Items</th>
+                                    <th class="p-3.5">Total Pago</th>
+                                    <th class="p-3.5">Método / Envío</th>
+                                    <th class="p-3.5">Estado</th>
+                                    <th class="p-3.5 text-right">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminOrdersTableBody" class="divide-y divide-slate-700/60">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: ABANDONED CART RECOVERY MODULE -->
+            <div id="adminTabAbandoned" class="hidden space-y-4">
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-5 mb-4">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-amber-500/20 text-amber-400 rounded-lg text-2xl">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white text-sm">Módulo Automático de Recuperación de Ventas</h4>
+                            <p class="text-xs text-slate-300 mt-1">
+                                Detecta cuando un visitante agrega prendas y no finaliza la compra. Envía recordatorio por WhatsApp o Email con un cupón del <strong>10% OFF (BOHO10)</strong> para concretar la conversión.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-900/60 text-slate-400 uppercase font-semibold">
+                                <tr>
+                                    <th class="p-3.5">Fecha / Hora</th>
+                                    <th class="p-3.5">Cliente / Contacto</th>
+                                    <th class="p-3.5">Prendas en Carrito</th>
+                                    <th class="p-3.5">Monto Abandonado</th>
+                                    <th class="p-3.5">Estado Notificación</th>
+                                    <th class="p-3.5 text-right">Acción Recuperación</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminAbandonedTableBody" class="divide-y divide-slate-700/60">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="mainFooter" class="bg-boho-charcoal text-boho-ivory pt-16 pb-12 border-t border-boho-gold/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+            <div>
+                <span class="font-serif text-2xl tracking-[0.2em] font-bold text-boho-gold block">SAMADHI</span>
+                <span class="text-[9px] tracking-[0.4em] uppercase text-boho-sand font-semibold">STYLE • BOHEMIAN LUXURY</span>
+                <p class="text-xs text-gray-400 mt-4 leading-relaxed">
+                    Marca argentina inspirada en la libertad, estampados étnicos y textiles nobles. Colección exclusiva Boho Chic.
+                </p>
+            </div>
+            <div>
+                <h4 class="font-serif text-sm font-semibold tracking-wider text-boho-gold uppercase mb-4">Navegación</h4>
+                <ul class="space-y-2 text-xs text-gray-300">
+                    <li><a href="#catalogo" onclick="filterCategory('Vestidos')" class="hover:text-boho-gold transition-colors">Vestidos Exclusivos</a></li>
+                    <li><a href="#catalogo" onclick="filterCategory('Denim')" class="hover:text-boho-gold transition-colors">Colección Denim</a></li>
+                    <li><a href="#catalogo" onclick="filterCategory('Túnicas y Blusas')" class="hover:text-boho-gold transition-colors">Túnicas & Blusas</a></li>
+                    <li><a href="#catalogo" onclick="filterCategory('Calzado')" class="hover:text-boho-gold transition-colors">Mocasines Taylor & Berna</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-serif text-sm font-semibold tracking-wider text-boho-gold uppercase mb-4">Integraciones Oficiales</h4>
+                <div class="space-y-3 text-xs text-gray-300">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-truck text-boho-terracotta"></i> Logística Andreani Argentina
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-credit-card text-boho-gold"></i> Checkout Mercado Pago
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-cloud text-blue-400"></i> Tiendanube Sync Ready
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-serif text-sm font-semibold tracking-wider text-boho-gold uppercase mb-4">Unite al Club Samadhi</h4>
+                <p class="text-xs text-gray-400 mb-3">Recibí 10% OFF en tu primera compra y adelanto de temporada.</p>
+                <div class="flex">
+                    <input type="email" placeholder="Tu e-mail..." class="bg-white/10 text-xs px-3 py-2 rounded-l-lg focus:outline-none text-white w-full border border-white/20">
+                    <button onclick="subscribeNewsletter()" class="bg-boho-gold text-boho-charcoal px-4 rounded-r-lg font-bold text-xs hover:bg-white transition-colors">UNIRME</button>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-gray-500 mt-12 pt-8 border-t border-white/10">
+            © 2026 SAMADHI STYLE. Todos los derechos reservados. Diseñado con inspiración Rapsodia & Boho Luxe.
+        </div>
+    </footer>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div id="productModal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeProductModal()">
+        <div class="bg-boho-ivory rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl overflow-hidden border border-boho-sand flex flex-col md:flex-row relative" onclick="event.stopPropagation()">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-500 hover:text-black text-xl z-10 w-9 h-9 bg-white/80 rounded-full flex items-center justify-center shadow-sm">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="md:w-1/2 bg-boho-cream flex items-center justify-center p-4">
+                <img id="modalImg" src="" alt="Producto" class="max-h-[450px] w-full object-cover rounded-xl shadow-md">
+            </div>
+
+            <div class="md:w-1/2 p-6 sm:p-8 flex flex-col justify-between">
+                <div>
+                    <span id="modalCategory" class="text-boho-terracotta text-[10px] font-bold uppercase tracking-widest">CATEGORIA</span>
+                    <h2 id="modalTitle" class="font-serif text-2xl sm:text-3xl text-boho-charcoal font-bold mt-1">Nombre Producto</h2>
+                    
+                    <div class="flex items-center gap-3 mt-3">
+                        <span id="modalPrice" class="text-xl sm:text-2xl font-bold text-boho-bordeaux">$0</span>
+                        <span class="text-xs bg-boho-gold/20 text-boho-bordeaux px-2.5 py-0.5 rounded-full font-semibold">15% OFF Transferencia</span>
+                    </div>
+
+                    <p id="modalDesc" class="text-xs text-gray-600 mt-4 leading-relaxed">
+                        Descripción inspiradora boho chic con telas suaves y detalles artesanales únicos.
+                    </p>
+
+                    <!-- COLOR SELECTOR -->
+                    <div class="mt-6">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-boho-charcoal mb-2">Color seleccionado:</label>
+                        <div id="modalColors" class="flex flex-wrap gap-2">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- SIZE SELECTOR -->
+                    <div class="mt-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-boho-charcoal">Talle:</label>
+                            <button onclick="showSizeGuide()" class="text-[11px] text-boho-terracotta underline hover:text-boho-bordeaux">Guía de Talles</button>
+                        </div>
+                        <div id="modalSizes" class="flex flex-wrap gap-2">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- QUANTITY SELECTOR -->
+                    <div class="mt-6 flex items-center gap-4">
+                        <span class="text-xs font-bold uppercase tracking-wider text-boho-charcoal">Cantidad:</span>
+                        <div class="flex items-center border border-boho-sand rounded-full bg-white px-2 py-1">
+                            <button onclick="changeQty(-1)" class="w-7 h-7 text-gray-600 hover:text-black font-bold text-sm">-</button>
+                            <span id="modalQty" class="px-3 text-xs font-bold">1</span>
+                            <button onclick="changeQty(1)" class="w-7 h-7 text-gray-600 hover:text-black font-bold text-sm">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-4 border-t border-boho-sand flex flex-col gap-3">
+                    <button onclick="addToCartFromModal()" class="w-full bg-boho-bordeaux text-white hover:bg-boho-charcoal transition-all py-3.5 rounded-full text-xs font-bold tracking-widest uppercase shadow-lg flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-bag-shopping"></i> Agregar al Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD/EDIT PRODUCT MODAL (ADMIN) -->
+    <div id="adminProductModal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="bg-slate-800 text-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-slate-700 relative">
+            <button onclick="closeAdminProductModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            
+            <h3 id="adminModalTitle" class="font-serif text-xl font-bold text-amber-400 mb-4">Cargar Nuevo Producto Tiendanube</h3>
+            
+            <form id="productForm" onsubmit="handleProductSubmit(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-300 mb-1">Nombre del Producto</label>
+                    <input type="text" id="adminProdName" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:border-amber-400 focus:outline-none">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-slate-300 mb-1">Categoría</label>
+                        <select id="adminProdCat" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:border-amber-400">
+                            <option value="Vestidos">Vestidos</option>
+                            <option value="Denim">Denim</option>
+                            <option value="Túnicas y Blusas">Túnicas y Blusas</option>
+                            <option value="Sacos y Pantalones">Sacos y Pantalones</option>
+                            <option value="Calzado">Calzado</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-1">Precio ($ ARS)</label>
+                        <input type="number" id="adminProdPrice" required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:border-amber-400">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-slate-300 mb-1">Talles (separados por coma)</label>
+                        <input type="text" id="adminProdSizes" placeholder="S, M, L" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:border-amber-400">
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 mb-1">Colores (separados por coma)</label>
+                        <input type="text" id="adminProdColors" placeholder="Negro, Manteca" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:border-amber-400">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-slate-300 mb-1">URL Imagen</label>
+                    <input type="url" id="adminProdImg" placeholder="https://..." required class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:border-amber-400">
+                </div>
+
+                <div>
+                    <label class="block text-slate-300 mb-1">Stock Inicial</label>
+                    <input type="number" id="adminProdStock" value="12" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white focus:border-amber-400">
+                </div>
+
+                <div class="pt-4 flex justify-end gap-2">
+                    <button type="button" onclick="closeAdminProductModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg">Cancelar</button>
+                    <button type="submit" class="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-lg">Guardar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SHOPPING CART DRAWER -->
+    <div id="cartDrawer" class="fixed inset-0 bg-black/50 z-50 hidden transition-opacity" onclick="closeCartDrawer()">
+        <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-boho-ivory shadow-2xl flex flex-col justify-between p-6 overflow-y-auto" onclick="event.stopPropagation()">
+            
+            <div>
+                <div class="flex justify-between items-center pb-4 border-b border-boho-sand">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-bag-shopping text-boho-terracotta text-lg"></i>
+                        <h3 class="font-serif font-bold text-lg text-boho-charcoal">Mi Carrito Boho</h3>
+                    </div>
+                    <button onclick="closeCartDrawer()" class="text-gray-500 hover:text-black text-xl"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <!-- CART ITEMS CONTAINER -->
+                <div id="cartItemsList" class="mt-6 space-y-4 divide-y divide-boho-sand/50">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <!-- EMPTY CART MSG -->
+                <div id="cartEmptyMsg" class="text-center py-12">
+                    <i class="fa-solid fa-basket-shopping text-4xl text-boho-sand mb-3"></i>
+                    <p class="text-xs text-gray-500 font-medium">Tu carrito está vacío</p>
+                    <button onclick="closeCartDrawer()" class="mt-4 bg-boho-terracotta text-white text-xs px-5 py-2 rounded-full font-semibold uppercase tracking-wider">Explorar Catálogo</button>
+                </div>
+            </div>
+
+            <!-- CART FOOTER & CHECKOUT SIMULATION -->
+            <div id="cartFooter" class="border-t border-boho-sand pt-4 mt-6 space-y-4 hidden">
+                
+                <!-- SIMULATE ANDREANI SHIPPING CALCULATION -->
+                <div class="bg-white p-3 rounded-xl border border-boho-sand text-xs">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-bold text-boho-charcoal flex items-center gap-1.5">
+                            <i class="fa-solid fa-truck text-boho-terracotta"></i> Envíos Andreani Argentina
+                        </span>
+                        <span id="shippingCostText" class="text-gray-500 font-semibold">$0</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <input type="text" id="cpInput" maxlength="4" placeholder="Código Postal (ej: 1425)" class="bg-boho-cream border border-boho-sand rounded-lg px-3 py-1.5 w-full text-xs focus:outline-none">
+                        <button onclick="calculateShipping()" class="bg-boho-charcoal text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-boho-terracotta transition-colors">Calcular</button>
+                    </div>
+                    <p id="shippingEstimateMsg" class="text-[10px] text-emerald-700 mt-1 font-medium hidden">¡Envío sin cargo por compras superiores a $150.000!</p>
+                </div>
+
+                <!-- COUPON CODE -->
+                <div class="flex gap-2">
+                    <input type="text" id="couponInput" placeholder="Cupón de descuento (ej: BOHO10)" class="bg-white border border-boho-sand rounded-lg px-3 py-1.5 w-full text-xs uppercase focus:outline-none">
+                    <button onclick="applyCoupon()" class="bg-boho-gold text-boho-charcoal px-3 py-1.5 rounded-lg font-bold text-xs hover:bg-boho-goldHover">Aplicar</button>
+                </div>
+
+                <!-- TOTALS BREAKDOWN -->
+                <div class="space-y-1.5 text-xs text-gray-600 pt-2 border-t border-boho-sand">
+                    <div class="flex justify-between">
+                        <span>Subtotal Prendas:</span>
+                        <span id="cartSubtotal" class="font-semibold text-boho-charcoal">$0</span>
+                    </div>
+                    <div id="discountRow" class="flex justify-between text-emerald-700 hidden font-semibold">
+                        <span>Descuento Cupón (10%):</span>
+                        <span id="cartDiscount">-$0</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Costo de Envío:</span>
+                        <span id="cartShipping">$0</span>
+                    </div>
+                    <div class="flex justify-between text-sm font-bold text-boho-bordeaux pt-2 border-t border-boho-sand">
+                        <span>TOTAL COMPRA:</span>
+                        <span id="cartTotal">$0</span>
+                    </div>
+                </div>
+
+                <!-- MERCADO PAGO CHECKOUT SIMULATION BUTTON -->
+                <button onclick="triggerMercadoPagoCheckout()" class="w-full bg-[#009EE3] hover:bg-[#0089C7] text-white py-3.5 rounded-xl font-bold text-xs tracking-wider uppercase shadow-md flex items-center justify-center gap-2 transition-all">
+                    <i class="fa-solid fa-bolt"></i> Pagar con Mercado Pago
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FLOATING WHATSAPP RECOVERY / HELP BUTTON -->
+    <a href="https://wa.me/5491112345678?text=Hola%20Samadhi%20Style,%20tengo%20una%20consulta%20sobre%20los%20vestidos" target="_blank" class="fixed bottom-6 right-6 z-40 bg-emerald-600 text-white p-3.5 rounded-full shadow-2xl hover:scale-110 transition-all flex items-center justify-center">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast" class="fixed bottom-6 left-6 z-50 bg-boho-charcoal text-white px-5 py-3 rounded-xl shadow-2xl text-xs font-semibold hidden flex items-center gap-2 border border-boho-gold">
+        <i class="fa-solid fa-sparkles text-boho-gold"></i>
+        <span id="toastMsg">Mensaje de notificación</span>
+    </div>
+
+    <!-- APPLICATION LOGIC & DATA -->
+    <script>
+        /* INITIAL CSV CATALOG FROM TIENDANUBE */
+        let products = [
+            { id: 1, name: "VESTIDO RANYA", category: "Vestidos", price: 125000, img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80", sizes: ["S", "M", "L"], colors: ["Negro", "Manteca", "Chocolate"], stock: 8, desc: "Vestido largo estilo étnico chic con bordados dorados en pechera y mangas acampanadas." },
+            { id: 2, name: "WIDE LEG MOTHER", category: "Denim", price: 149500, img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=600&q=80", sizes: ["24", "26", "28", "30", "32"], colors: ["Denim", "Negro"], stock: 12, desc: "Pantalón Denim corte wide leg tiro alto, calce estructurado ultra favorecedor." },
+            { id: 3, name: "JEAN FARO", category: "Denim", price: 161750, img: "https://images.unsplash.com/photo-1582552938357-32b906df40cb?auto=format&fit=crop&w=600&q=80", sizes: ["26", "28", "30"], colors: ["Denim Vintage"], stock: 5, desc: "Jean estilo retro vintage con detalles desflecados artesanales." },
+            { id: 4, name: "JEAN JUJUY", category: "Denim", price: 164750, img: "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=600&q=80", sizes: ["24", "26", "28", "30"], colors: ["Celeste Gastado"], stock: 15, desc: "Denim rígido 100% algodón corte recto boho con roturas exclusivas." },
+            { id: 5, name: "JEAN CROP MAJO", category: "Denim", price: 162250, img: "https://images.unsplash.com/photo-1582552938357-32b906df40cb?auto=format&fit=crop&w=600&q=80", sizes: ["26", "28", "30", "32"], colors: ["Negro Gastado"], stock: 4, desc: "Jean tobillero tiro alto ideal para lucir con mocasines de cuero." },
+            { id: 6, name: "WIDE LEG BLACK", category: "Denim", price: 110000, img: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80", sizes: ["26", "28", "30"], colors: ["Negro"], stock: 9, desc: "Wide leg en gabardina saturada negra con caída fluida." },
+            { id: 7, name: "BLUSA LOANE", category: "Túnicas y Blusas", price: 65000, img: "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=600&q=80", sizes: ["S", "M", "L"], colors: ["Blanco", "Manteca"], stock: 18, desc: "Blusa romántica con encajes guipure y escote con cordones étnicos." },
+            { id: 8, name: "PANTALON GALIM", category: "Sacos y Pantalones", price: 95000, img: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80", sizes: ["S", "M", "L"], colors: ["Terracota", "Visón"], stock: 7, desc: "Pantalón palazzo en lino con cintura elastizada y borlas doradas." },
+            { id: 9, name: "VESTIDO ADALIA", category: "Vestidos", price: 112500, img: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=80", sizes: ["S", "M", "L"], colors: ["Estampado Florid"], stock: 3, desc: "Vestido midi estampado boho con hilo dorado lurex incorporado." },
+            { id: 10, name: "SACO GRETTA", category: "Sacos y Pantalones", price: 112500, img: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80", sizes: ["S", "M"], colors: ["Chocolate", "Siena"], stock: 6, desc: "Saco tipo kimono de terciopelo bordado a mano con motivos orientales." },
+            { id: 11, name: "VESTIDO JUANA", category: "Vestidos", price: 57500, img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80", sizes: ["S", "M", "L"], colors: ["Rosa Empolvado"], stock: 14, desc: "Vestido corto de bambula con volados fluidos." },
+            { id: 12, name: "VESTIDO NICOL", category: "Vestidos", price: 112500, img: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=600&q=80", sizes: ["S", "M"], colors: ["Negro Luxe"], stock: 2, desc: "Vestido largo plisado con espalda descubierta." },
+            { id: 13, name: "FALDA ATHENAS", category: "Vestidos", price: 92500, img: "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=600&q=80", sizes: ["S", "M", "L"], colors: ["Crudo", "Caramelo"], stock: 10, desc: "Falda maxilarga con tajos laterales y cintura trenzada." },
+            { id: 14, name: "VESTIDO/BLUSA ALMA", category: "Túnicas y Blusas", price: 68000, img: "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=600&q=80", sizes: ["Único"], colors: ["Manteca"], stock: 11, desc: "Prenda versátil usable como túnica corta o blusa oversized." },
+            { id: 15, name: "TUNICA AYME", category: "Túnicas y Blusas", price: 70000, img: "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=600&q=80", sizes: ["Único"], colors: ["Terracota"], stock: 9, desc: "Túnica artesanal confeccionada en gasa con apliques metálicos." },
+            { id: 16, name: "VESTIDO MYSTICA", category: "Vestidos", price: 112500, img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80", sizes: ["S", "M", "L"], colors: ["Bordó"], stock: 5, desc: "Pieza ícono Samadhi con espejo de la India y bordados en hilo de seda." },
+            { id: 17, name: "MOCASIN TAYLOR", category: "Calzado", price: 162500, img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=600&q=80", sizes: ["36", "37", "38", "39", "40"], colors: ["Suela", "Negro"], stock: 8, desc: "Mocasín 100% cuero vacuno con hebilla dorada tallada a mano." },
+            { id: 18, name: "MOCASIN BERNA", category: "Calzado", price: 162500, img: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=600&q=80", sizes: ["36", "37", "38", "39"], colors: ["Tachas Cuero"], stock: 6, desc: "Mocasín con tachas icónico estilo rock & boho." },
+            { id: 19, name: "PANTALON ALICE", category: "Sacos y Pantalones", price: 58000, img: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80", sizes: ["S", "M", "L"], colors: ["Verde Olivo"], stock: 12, desc: "Pantalón relajado de morley suave con caída recta." },
+            { id: 20, name: "MUSCULOSA AMANDA", category: "Túnicas y Blusas", price: 70000, img: "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=600&q=80", sizes: ["S", "M", "L"], colors: ["Crudo", "Negro"], stock: 15, desc: "Musculosa de seda vegetal con breteles regulables de hilos dorados." }
+        ];
+
+        /* STATE MANAGEMENT */
+        let cart = [];
+        let selectedProductForModal = null;
+        let selectedSize = '';
+        let selectedColor = '';
+        let modalQuantity = 1;
+        let currentDiscount = 0;
+        let shippingCost = 0;
+
+        /* ORDERS & ABANDONED CARTS SIMULATION DATA */
+        let orders = [
+            { id: "ORD-9482", customer: "Sofía Martínez", email: "sofia.m@gmail.com", items: "1x VESTIDO RANYA (S)", total: 125000, method: "Mercado Pago", status: "Pagado & Despachado (Andreani)" },
+            { id: "ORD-9483", customer: "Lucía Pereyra", email: "lucia.p@hotmail.com", items: "1x WIDE LEG MOTHER (28), 1x BLUSA LOANE (M)", total: 214500, method: "Transferencia (-15%)", status: "Pago Confirmado" },
+            { id: "ORD-9484", customer: "Camila Fernandez", email: "cami.f@yahoo.com", items: "1x MOCASIN TAYLOR (38)", total: 162500, method: "Mercado Pago", status: "En Preparación" }
+        ];
+
+        let abandonedCarts = [
+            { id: "AB-301", date: "Hoy 14:22 hs", customer: "Valentina Rossi", phone: "+5491144556677", items: "1x VESTIDO MYSTICA, 1x MOCASIN BERNA", amount: 275000, status: "Pendiente" },
+            { id: "AB-302", date: "Ayer 18:05 hs", customer: "Martina Gomez", phone: "+5491122334455", items: "1x JEAN FARO (28)", amount: 161750, status: "Recordatorio Enviado" }
+        ];
+
+        /* INIT APPLICATION */
+        window.onload = function() {
+            renderProducts(products);
+            updateCartUI();
+            renderAdminTables();
+        };
+
+        /* RENDER PRODUCT CATALOG */
+        function renderProducts(items) {
+            const grid = document.getElementById('productGrid');
+            const emptyMsg = document.getElementById('noProductsFound');
+            grid.innerHTML = '';
+
+            if(items.length === 0) {
+                emptyMsg.classList.remove('hidden');
+                return;
+            } else {
+                emptyMsg.classList.add('hidden');
+            }
+
+            items.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "group bg-white rounded-2xl overflow-hidden border border-boho-sand/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between";
+                card.innerHTML = `
+                    <div class="relative overflow-hidden cursor-pointer" onclick="openProductModal(${p.id})">
+                        <img src="${p.img}" alt="${p.name}" class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-boho-ivory/90 backdrop-blur-md text-boho-charcoal text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-boho-sand">
+                            ${p.category}
+                        </span>
+                        <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="bg-boho-ivory text-boho-charcoal text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full shadow-lg">
+                                Ver Detalle
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow justify-between">
+                        <div>
+                            <h3 class="font-serif font-bold text-base text-boho-charcoal group-hover:text-boho-bordeaux transition-colors">${p.name}</h3>
+                            <p class="text-xs text-gray-500 line-clamp-2 mt-1">${p.desc}</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-boho-cream flex items-center justify-between">
+                            <div>
+                                <span class="text-base font-bold text-boho-bordeaux">$${p.price.toLocaleString('es-AR')}</span>
+                                <span class="block text-[9px] text-gray-500">3x $${Math.round(p.price/3).toLocaleString('es-AR')} sin interés</span>
+                            </div>
+                            <button onclick="quickAddToCart(${p.id})" class="bg-boho-cream hover:bg-boho-terracotta hover:text-white text-boho-charcoal p-2.5 rounded-full transition-colors" title="Agregar al carrito">
+                                <i class="fa-solid fa-bag-shopping text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        /* FILTER & SEARCH HANDLERS */
+        function filterCategory(cat) {
+            document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-boho-charcoal', 'text-white');
+                btn.classList.add('bg-boho-cream', 'text-boho-charcoal');
+            });
+            event.target.classList.remove('bg-boho-cream', 'text-boho-charcoal');
+            event.target.classList.add('bg-boho-charcoal', 'text-white');
+
+            if(cat === 'ALL') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category === cat);
+                renderProducts(filtered);
+            }
+        }
+
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.category.toLowerCase().includes(query) ||
+                p.desc.toLowerCase().includes(query)
+            );
+            renderProducts(filtered);
+        }
+
+        function sortProducts() {
+            const val = document.getElementById('sortSelect').value;
+            let sorted = [...products];
+            if(val === 'price-asc') sorted.sort((a,b) => a.price - b.price);
+            if(val === 'price-desc') sorted.sort((a,b) => b.price - a.price);
+            if(val === 'name') sorted.sort((a,b) => a.name.localeCompare(b.name));
+            renderProducts(sorted);
+        }
+
+        /* MODAL PRODUCT DETAIL */
+        function openProductModal(id) {
+            selectedProductForModal = products.find(p => p.id === id);
+            selectedSize = selectedProductForModal.sizes[0];
+            selectedColor = selectedProductForModal.colors[0];
+            modalQuantity = 1;
+
+            document.getElementById('modalImg').src = selectedProductForModal.img;
+            document.getElementById('modalTitle').innerText = selectedProductForModal.name;
+            document.getElementById('modalCategory').innerText = selectedProductForModal.category;
+            document.getElementById('modalPrice').innerText = `$${selectedProductForModal.price.toLocaleString('es-AR')}`;
+            document.getElementById('modalDesc').innerText = selectedProductForModal.desc;
+            document.getElementById('modalQty').innerText = modalQuantity;
+
+            // Render sizes
+            const sizeContainer = document.getElementById('modalSizes');
+            sizeContainer.innerHTML = '';
+            selectedProductForModal.sizes.forEach(sz => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `px-3.5 py-1.5 text-xs rounded-lg border font-semibold transition-all ${sz === selectedSize ? 'bg-boho-charcoal text-white border-boho-charcoal' : 'bg-white text-gray-700 border-boho-sand'}`;
+                btn.innerText = sz;
+                btn.onclick = () => {
+                    selectedSize = sz;
+                    openProductModal(id);
+                };
+                sizeContainer.appendChild(btn);
+            });
+
+            // Render colors
+            const colorContainer = document.getElementById('modalColors');
+            colorContainer.innerHTML = '';
+            selectedProductForModal.colors.forEach(col => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `px-3.5 py-1.5 text-xs rounded-lg border font-semibold transition-all ${col === selectedColor ? 'bg-boho-terracotta text-white border-boho-terracotta' : 'bg-white text-gray-700 border-boho-sand'}`;
+                btn.innerText = col;
+                btn.onclick = () => {
+                    selectedColor = col;
+                    openProductModal(id);
+                };
+                colorContainer.appendChild(btn);
+            });
+
+            document.getElementById('productModal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.add('hidden');
+        }
+
+        function changeQty(delta) {
+            modalQuantity += delta;
+            if(modalQuantity < 1) modalQuantity = 1;
+            document.getElementById('modalQty').innerText = modalQuantity;
+        }
+
+        function showSizeGuide() {
+            alert("TABLA DE MEDIDAS SAMADHI STYLE:\nTalle S (24/26): Busto 85-90cm | Cintura 65-70cm\nTalle M (28/30): Busto 90-95cm | Cintura 70-75cm\nTalle L (32): Busto 95-100cm | Cintura 75-80cm");
+        }
+
+        /* CART MANAGEMENT */
+        function addToCartFromModal() {
+            const item = {
+                id: selectedProductForModal.id,
+                name: selectedProductForModal.name,
+                price: selectedProductForModal.price,
+                img: selectedProductForModal.img,
+                size: selectedSize,
+                color: selectedColor,
+                qty: modalQuantity
+            };
+            
+            // Check if exists
+            const existingIdx = cart.findIndex(c => c.id === item.id && c.size === item.size && c.color === item.color);
+            if(existingIdx > -1) {
+                cart[existingIdx].qty += modalQuantity;
+            } else {
+                cart.push(item);
+            }
+
+            closeProductModal();
+            updateCartUI();
+            openCartDrawer();
+            showToast(`¡${item.name} agregado al carrito!`);
+        }
+
+        function quickAddToCart(id) {
+            const p = products.find(x => x.id === id);
+            const item = {
+                id: p.id,
+                name: p.name,
+                price: p.price,
+                img: p.img,
+                size: p.sizes[0],
+                color: p.colors[0],
+                qty: 1
+            };
+            const existingIdx = cart.findIndex(c => c.id === item.id && c.size === item.size && c.color === item.color);
+            if(existingIdx > -1) {
+                cart[existingIdx].qty += 1;
+            } else {
+                cart.push(item);
+            }
+            updateCartUI();
+            showToast(`¡${p.name} agregado al carrito!`);
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const list = document.getElementById('cartItemsList');
+            const count = document.getElementById('cartCount');
+            const emptyMsg = document.getElementById('cartEmptyMsg');
+            const footer = document.getElementById('cartFooter');
+
+            const totalItems = cart.reduce((acc, curr) => acc + curr.qty, 0);
+            count.innerText = totalItems;
+
+            if(cart.length === 0) {
+                list.innerHTML = '';
+                emptyMsg.classList.remove('hidden');
+                footer.classList.add('hidden');
+                return;
+            }
+
+            emptyMsg.classList.add('hidden');
+            footer.classList.remove('hidden');
+            list.innerHTML = '';
+
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                subtotal += item.price * item.qty;
+                const div = document.createElement('div');
+                div.className = "flex items-center justify-between pt-3";
+                div.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <img src="${item.img}" alt="${item.name}" class="w-14 h-16 object-cover rounded-lg">
+                        <div>
+                            <h4 class="font-serif text-xs font-bold text-boho-charcoal">${item.name}</h4>
+                            <p class="text-[10px] text-gray-500">Talle: ${item.size} | Color: ${item.color}</p>
+                            <span class="text-xs font-bold text-boho-bordeaux">$${(item.price * item.qty).toLocaleString('es-AR')}</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-medium text-gray-600">x${item.qty}</span>
+                        <button onclick="removeFromCart(${index})" class="text-gray-400 hover:text-rose-600 text-xs p-1"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+
+            const discountAmount = subtotal * currentDiscount;
+            const finalTotal = subtotal - discountAmount + shippingCost;
+
+            document.getElementById('cartSubtotal').innerText = `$${subtotal.toLocaleString('es-AR')}`;
+            document.getElementById('cartTotal').innerText = `$${finalTotal.toLocaleString('es-AR')}`;
+
+            if(currentDiscount > 0) {
+                document.getElementById('discountRow').classList.remove('hidden');
+                document.getElementById('cartDiscount').innerText = `-$${discountAmount.toLocaleString('es-AR')}`;
+            } else {
+                document.getElementById('discountRow').classList.add('hidden');
+            }
+        }
+
+        function calculateShipping() {
+            const cp = document.getElementById('cpInput').value;
+            if(!cp || cp.length < 4) {
+                showToast("Por favor ingresa un Código Postal válido");
+                return;
+            }
+            const subtotal = cart.reduce((acc, curr) => acc + (curr.price * curr.qty), 0);
+            
+            if(subtotal >= 150000) {
+                shippingCost = 0;
+                document.getElementById('shippingCostText').innerText = "¡GRATIS!";
+                document.getElementById('shippingEstimateMsg').classList.remove('hidden');
+            } else {
+                shippingCost = 4500;
+                document.getElementById('shippingCostText').innerText = "$4.500";
+                document.getElementById('shippingEstimateMsg').classList.add('hidden');
+            }
+            document.getElementById('cartShipping').innerText = shippingCost === 0 ? "¡GRATIS!" : `$${shippingCost.toLocaleString('es-AR')}`;
+            updateCartUI();
+            showToast("Tarifa Andreani calculada para el CP " + cp);
+        }
+
+        function applyCoupon() {
+            const coupon = document.getElementById('couponInput').value.trim().toUpperCase();
+            if(coupon === "BOHO10") {
+                currentDiscount = 0.10;
+                showToast("¡Cupón BOHO10 (10% OFF) aplicado con éxito!");
+            } else {
+                showToast("Cupón inválido. Prueba BOHO10");
+                currentDiscount = 0;
+            }
+            updateCartUI();
+        }
+
+        function openCartDrawer() {
+            document.getElementById('cartDrawer').classList.remove('hidden');
+        }
+
+        function closeCartDrawer() {
+            document.getElementById('cartDrawer').classList.add('hidden');
+            
+            // SIMULATE CARRO ABANDONADO LOGGING IF USER LEAVES CARRO WITH ITEMS
+            if(cart.length > 0) {
+                const totalAmount = cart.reduce((acc, curr) => acc + (curr.price * curr.qty), 0);
+                const itemsSummary = cart.map(c => `${c.qty}x ${c.name}`).join(', ');
+                
+                // Add to abandoned carts list in admin if not logged recently
+                const abandonedId = "AB-" + Math.floor(100 + Math.random() * 900);
+                abandonedCarts.unshift({
+                    id: abandonedId,
+                    date: "Hace momentos",
+                    customer: "Visitante Web (Suscrito)",
+                    phone: "+5491199887766",
+                    items: itemsSummary,
+                    amount: totalAmount,
+                    status: "Pendiente"
+                });
+                renderAdminTables();
+            }
+        }
+
+        function triggerMercadoPagoCheckout() {
+            if(cart.length === 0) return;
+            const subtotal = cart.reduce((acc, curr) => acc + (curr.price * curr.qty), 0);
+            const total = subtotal - (subtotal * currentDiscount) + shippingCost;
+            
+            // Register as completed order in Backoffice
+            const orderId = "ORD-" + Math.floor(1000 + Math.random() * 9000);
+            orders.unshift({
+                id: orderId,
+                customer: "Cliente Mercado Pago",
+                email: "compras.mp@samadhistyle.com.ar",
+                items: cart.map(c => `${c.qty}x ${c.name}`).join(', '),
+                total: total,
+                method: "Mercado Pago Checkout Pro",
+                status: "Pago Exitoso"
+            });
+
+            // Clear cart
+            cart = [];
+            updateCartUI();
+            closeCartDrawer();
+            renderAdminTables();
+
+            alert(`🎉 REDIRIGIENDO A CHECKOUT MERCADO PAGO SIMULADO...\n\n¡Gracias por tu compra en Samadhi Style!\n\nNúmero de Orden: ${orderId}\nMonto Total: $${total.toLocaleString('es-AR')}\n\nRecibirás el código de seguimiento Andreani por Email.`);
+        }
+
+        /* BACKOFFICE ADMIN CONTROLS */
+        function toggleViewMode() {
+            const client = document.getElementById('clientView');
+            const admin = document.getElementById('adminView');
+            const topBar = document.getElementById('top-bar');
+            const footer = document.getElementById('mainFooter');
+            const btnText = document.getElementById('viewToggleText');
+
+            if(admin.classList.contains('hidden')) {
+                admin.classList.remove('hidden');
+                client.classList.add('hidden');
+                topBar.classList.add('hidden');
+                footer.classList.add('hidden');
+                btnText.innerText = "Modo Tienda Client";
+                renderAdminTables();
+            } else {
+                admin.classList.add('hidden');
+                client.classList.remove('hidden');
+                topBar.classList.remove('hidden');
+                footer.classList.remove('hidden');
+                btnText.innerText = "Modo Backoffice";
+            }
+        }
+
+        function switchAdminTab(tabName) {
+            document.getElementById('adminTabProducts').classList.add('hidden');
+            document.getElementById('adminTabOrders').classList.add('hidden');
+            document.getElementById('adminTabAbandoned').classList.add('hidden');
+
+            document.getElementById('tabBtnProducts').className = "pb-3 border-b-2 border-transparent text-slate-400 hover:text-white flex items-center gap-2";
+            document.getElementById('tabBtnOrders').className = "pb-3 border-b-2 border-transparent text-slate-400 hover:text-white flex items-center gap-2";
+            document.getElementById('tabBtnAbandoned').className = "pb-3 border-b-2 border-transparent text-slate-400 hover:text-white flex items-center gap-2";
+
+            if(tabName === 'products') {
+                document.getElementById('adminTabProducts').classList.remove('hidden');
+                document.getElementById('tabBtnProducts').className = "pb-3 border-b-2 border-amber-400 text-amber-400 flex items-center gap-2 font-bold";
+            } else if(tabName === 'orders') {
+                document.getElementById('adminTabOrders').classList.remove('hidden');
+                document.getElementById('tabBtnOrders').className = "pb-3 border-b-2 border-amber-400 text-amber-400 flex items-center gap-2 font-bold";
+            } else if(tabName === 'abandoned') {
+                document.getElementById('adminTabAbandoned').classList.remove('hidden');
+                document.getElementById('tabBtnAbandoned').className = "pb-3 border-b-2 border-amber-400 text-amber-400 flex items-center gap-2 font-bold";
+            }
+        }
+
+        function renderAdminTables() {
+            // Products table
+            const prodTable = document.getElementById('adminProductsTableBody');
+            prodTable.innerHTML = '';
+            products.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="p-3.5 flex items-center gap-3">
+                        <img src="${p.img}" class="w-8 h-10 object-cover rounded">
+                        <span class="font-bold text-white">${p.name}</span>
+                    </td>
+                    <td class="p-3.5 text-slate-300">${p.category}</td>
+                    <td class="p-3.5 font-bold text-amber-400">$${p.price.toLocaleString('es-AR')}</td>
+                    <td class="p-3.5 text-slate-300">${p.sizes.join(', ')}</td>
+                    <td class="p-3.5 text-slate-300">${p.colors.join(', ')}</td>
+                    <td class="p-3.5 text-center font-bold ${p.stock < 5 ? 'text-rose-400' : 'text-emerald-400'}">${p.stock} un.</td>
+                    <td class="p-3.5 text-right">
+                        <button onclick="deleteProduct(${p.id})" class="text-rose-400 hover:text-rose-300"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                prodTable.appendChild(tr);
+            });
+
+            // Orders table
+            const ordTable = document.getElementById('adminOrdersTableBody');
+            ordTable.innerHTML = '';
+            orders.forEach(o => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="p-3.5 font-bold text-amber-400">${o.id}</td>
+                    <td class="p-3.5">${o.customer}<br><span class="text-[10px] text-slate-400">${o.email}</span></td>
+                    <td class="p-3.5 text-slate-300">${o.items}</td>
+                    <td class="p-3.5 font-bold text-emerald-400">$${o.total.toLocaleString('es-AR')}</td>
+                    <td class="p-3.5 text-slate-300">${o.method}</td>
+                    <td class="p-3.5"><span class="bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full text-[10px] font-bold">${o.status}</span></td>
+                    <td class="p-3.5 text-right">
+                        <button onclick="alert('Generando etiqueta de envío Andreani para orden ${o.id}')" class="bg-slate-700 hover:bg-slate-600 px-2.5 py-1 rounded text-[10px] font-bold">Etiqueta Andreani</button>
+                    </td>
+                `;
+                ordTable.appendChild(tr);
+            });
+
+            // Abandoned table
+            const abTable = document.getElementById('adminAbandonedTableBody');
+            abTable.innerHTML = '';
+            abandonedCarts.forEach((a, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="p-3.5 text-slate-400">${a.date}</td>
+                    <td class="p-3.5 font-semibold text-white">${a.customer}<br><span class="text-[10px] text-amber-300">${a.phone}</span></td>
+                    <td class="p-3.5 text-slate-300">${a.items}</td>
+                    <td class="p-3.5 font-bold text-amber-400">$${a.amount.toLocaleString('es-AR')}</td>
+                    <td class="p-3.5"><span class="bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded-full text-[10px] font-bold">${a.status}</span></td>
+                    <td class="p-3.5 text-right">
+                        <button onclick="sendAbandonedRecovery('${a.phone}', '${a.customer}', ${idx})" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 ml-auto">
+                            <i class="fa-brands fa-whatsapp"></i> Enviar Recordatorio
+                        </button>
+                    </td>
+                `;
+                abTable.appendChild(tr);
+            });
+
+            // Counters
+            document.getElementById('adminProdCount').innerText = products.length;
+            document.getElementById('adminOrdersCount').innerText = orders.length;
+            document.getElementById('adminAbandonedCount').innerText = abandonedCarts.length;
+        }
+
+        function sendAbandonedRecovery(phone, name, index) {
+            abandonedCarts[index].status = "Recordatorio Enviado";
+            renderAdminTables();
+            const msg = encodeURIComponent(`Hola ${name}! ✨ Notamos que dejaste prendas en tu carrito de Samadhi Style. Completa tu compra hoy con un 10% OFF usando el cupón BOHO10. ¿Te ayudamos con tu talle?`);
+            window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+        }
+
+        function openAddProductModal() {
+            document.getElementById('adminProductModal').classList.remove('hidden');
+        }
+
+        function closeAdminProductModal() {
+            document.getElementById('adminProductModal').classList.add('hidden');
+        }
+
+        function handleProductSubmit(e) {
+            e.preventDefault();
+            const newP = {
+                id: products.length + 1,
+                name: document.getElementById('adminProdName').value,
+                category: document.getElementById('adminProdCat').value,
+                price: parseFloat(document.getElementById('adminProdPrice').value),
+                sizes: document.getElementById('adminProdSizes').value.split(',').map(s => s.trim()),
+                colors: document.getElementById('adminProdColors').value.split(',').map(c => c.trim()),
+                img: document.getElementById('adminProdImg').value,
+                stock: parseInt(document.getElementById('adminProdStock').value) || 10,
+                desc: "Novedad exclusiva cargada en catálogo Samadhi Style."
+            };
+            products.unshift(newP);
+            renderProducts(products);
+            renderAdminTables();
+            closeAdminProductModal();
+            showToast("¡Producto cargado exitosamente!");
+        }
+
+        function deleteProduct(id) {
+            if(confirm("¿Seguro que deseas eliminar esta prenda del catálogo?")) {
+                products = products.filter(p => p.id !== id);
+                renderProducts(products);
+                renderAdminTables();
+                showToast("Producto eliminado de inventario");
+            }
+        }
+
+        /* HERO SLIDER CONTROLS */
+        function scrollNextSlide() {
+            const container = document.getElementById('snapSlider');
+            container.scrollBy({ top: window.innerHeight * 0.9, behavior: 'smooth' });
+        }
+
+        function scrollToSlide(index) {
+            const container = document.getElementById('snapSlider');
+            container.scrollTo({ top: index * window.innerHeight * 0.9, behavior: 'smooth' });
+        }
+
+        /* UI HELPERS */
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobileNav');
+            nav.classList.toggle('hidden');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        function subscribeNewsletter() {
+            showToast("✨ ¡Gracias por unirte al Club Samadhi Style! Te enviamos tu cupón al email.");
+        }
+    </script>
 </body>
 </html>
